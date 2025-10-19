@@ -1,5 +1,5 @@
-import { IGuessNumber } from '../../contracts';
+import { IGuess } from '../../contracts';
 
 export const secretNumberGenerator = (length = 100) => {
-  return (Math.floor(Math.random() * length) + 1) as IGuessNumber;
+  return (Math.floor(Math.random() * length) + 1) as IGuess;
 };

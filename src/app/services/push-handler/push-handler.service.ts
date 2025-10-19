@@ -1,5 +1,5 @@
-import type { Server, Socket } from 'socket.io';
-import type { IPushEvent } from 'src/contracts';
+import type { Server } from 'socket.io';
+import type { IPushEvent, ISocketId } from 'src/contracts';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -10,7 +10,11 @@ export class PushHandlerService {
     this._server = server;
   }
 
-  push(socket: Socket, event: IPushEvent) {}
+  push(socketIds: ISocketId | ISocketId[], { event, payload }: IPushEvent) {
+    const targets = Array.isArray(socketIds) ? socketIds : [socketIds];
 
-  pushError(socket: Socket, event: { command: string; error: unknown }) {}
+    for (const socketId of targets) {
+      this._server.to(socketId).emit(event, payload);
+    }
+  }
 }

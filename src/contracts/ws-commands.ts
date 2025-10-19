@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { Guess } from './guess';
 import { Player } from './player';
 import { RoomUuid } from './room';
 
@@ -17,7 +18,7 @@ export type ICommandMakeGuess = z.infer<typeof CommandMakeGuess>;
 export const CommandMakeGuess = z.object({
   command: z.literal(COMMAND.MAKE_GUESS),
   data: z.object({
-    guess: z.number(),
+    guess: Guess,
   }),
 });
 
@@ -43,7 +44,6 @@ export type ICommandRoomJoin = z.infer<typeof CommandRoomJoin>;
 export const CommandRoomJoin = z.object({
   command: z.literal(COMMAND.ROOM_JOIN),
   data: z.object({
-    playerName: Player.shape.name,
     roomUuid: RoomUuid,
   }),
 });

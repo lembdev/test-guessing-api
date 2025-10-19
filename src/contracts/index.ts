@@ -1,4 +1,4 @@
-export * from './guess-number';
+export * from './guess';
 export * from './player';
 export * from './room';
 export * from './socket';

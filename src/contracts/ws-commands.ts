@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import { Guess } from './guess';
-import { Player } from './player';
 import { RoomUuid } from './room';
 
 export type COMMAND = (typeof COMMAND)[keyof typeof COMMAND];

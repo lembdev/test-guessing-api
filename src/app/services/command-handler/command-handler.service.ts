@@ -21,16 +21,6 @@ import { RoomService } from '../room/room.service';
 export class CommandHandlerService {
   private readonly _logger = new Logger(this.constructor.name);
 
-  private readonly _commands = {
-    [COMMAND.MAKE_GUESS]: 'make-guess',
-    [COMMAND.RESET_SECRET]: 'reset-secret',
-    [COMMAND.ROOM_CREATE]: 'room-create',
-    [COMMAND.ROOM_GET_LIST]: 'room-get-list',
-    [COMMAND.ROOM_JOIN]: 'room-join',
-    [COMMAND.ROOM_LEAVE]: 'room-leave',
-    [COMMAND.SHOW_RESULTS]: 'show-results',
-  } as const;
-
   constructor(
     private readonly _playerService: PlayerService,
     private readonly _roomService: RoomService,
@@ -76,9 +66,9 @@ export class CommandHandlerService {
 
       const socketIds = this._getRoomPlayerSocketIds(room);
 
-      this._pushHandlerService.pushMany(socketIds, {
+      this._pushHandlerService.push(socketIds, {
         event: PUSH.ROOM_USER_MADE_GUESS,
-        data: { playerUuid: player.uuid },
+        payload: { playerUuid: player.uuid },
       });
     } catch (error) {
       this._catchError(socketId, command, error);
@@ -102,9 +92,9 @@ export class CommandHandlerService {
 
       const socketIds = this._getRoomPlayerSocketIds(room);
 
-      this._pushHandlerService.pushMany(socketIds, {
+      this._pushHandlerService.push(socketIds, {
         event: PUSH.ROOM_NUMBER_RESET,
-        data: { resetBy: player.uuid },
+        payload: { resetBy: player.uuid },
       });
     } catch (error) {
       this._catchError(socketId, command, error);
@@ -120,7 +110,7 @@ export class CommandHandlerService {
 
       this._pushHandlerService.push(socketId, {
         event: PUSH.ROOM_CREATED,
-        data: { roomUuid: room.uuid },
+        payload: { roomUuid: room.uuid },
       });
     } catch (error) {
       this._catchError(socketId, command, error);
@@ -145,7 +135,7 @@ export class CommandHandlerService {
 
       this._pushHandlerService.push(socketId, {
         event: PUSH.ROOM_LIST_UPDATED,
-        data: { roomList },
+        payload: { roomList },
       });
     } catch (error) {
       this._catchError(socketId, command, error);
@@ -164,9 +154,9 @@ export class CommandHandlerService {
 
       const socketIds = this._getRoomPlayerSocketIds(room);
 
-      this._pushHandlerService.pushMany(socketIds, {
+      this._pushHandlerService.push(socketIds, {
         event: PUSH.ROOM_PLAYER_JOINED,
-        data: {
+        payload: {
           playerUuid: player.uuid,
           playerName: player.name,
         },
@@ -199,9 +189,9 @@ export class CommandHandlerService {
 
       const socketIds = this._getRoomPlayerSocketIds(room);
 
-      this._pushHandlerService.pushMany(socketIds, {
+      this._pushHandlerService.push(socketIds, {
         event: PUSH.ROOM_PLAYER_LEFT,
-        data: {
+        payload: {
           playerUuid: player.uuid,
         },
       });
@@ -230,9 +220,9 @@ export class CommandHandlerService {
 
       const socketIds = this._getRoomPlayerSocketIds(room);
 
-      this._pushHandlerService.pushMany(socketIds, {
+      this._pushHandlerService.push(socketIds, {
         event: PUSH.ROOM_RESULTS,
-        data: results,
+        payload: results,
       });
     } catch (error) {
       this._catchError(socketId, command, error);
@@ -244,7 +234,7 @@ export class CommandHandlerService {
     this._logger.error(error);
     this._pushHandlerService.push(socketId, {
       event: PUSH.ERROR,
-      data: { command, error },
+      payload: { command, error },
     });
   }
 

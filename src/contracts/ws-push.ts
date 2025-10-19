@@ -19,7 +19,7 @@ export const PUSH = {
 export type IEventError = z.infer<typeof EventError>;
 export const EventError = z.object({
   event: z.literal(PUSH.ERROR),
-  data: z.object({
+  payload: z.object({
     command: z.enum(COMMAND).optional(),
     error: z.any(),
   }),
@@ -28,7 +28,7 @@ export const EventError = z.object({
 export type IEventRoomCreated = z.infer<typeof EventRoomCreated>;
 export const EventRoomCreated = z.object({
   event: z.literal(PUSH.ROOM_CREATED),
-  data: z.object({
+  payload: z.object({
     roomUuid: RoomUuid,
   }),
 });
@@ -36,7 +36,7 @@ export const EventRoomCreated = z.object({
 export type IEventRoomListUpdated = z.infer<typeof EventRoomListUpdated>;
 export const EventRoomListUpdated = z.object({
   event: z.literal(PUSH.ROOM_LIST_UPDATED),
-  data: z.object({
+  payload: z.object({
     roomList: z.array(
       z.object({
         roomUuid: RoomUuid,
@@ -55,7 +55,7 @@ export const EventRoomListUpdated = z.object({
 export type IEventRoomNumberReset = z.infer<typeof EventRoomNumberReset>;
 export const EventRoomNumberReset = z.object({
   event: z.literal(PUSH.ROOM_NUMBER_RESET),
-  data: z.object({
+  payload: z.object({
     resetBy: PlayerUuid,
   }),
 });
@@ -63,7 +63,7 @@ export const EventRoomNumberReset = z.object({
 export type IEventRoomPlayerMadeGuess = z.infer<typeof EventRoomPlayerGuess>;
 export const EventRoomPlayerGuess = z.object({
   event: z.literal(PUSH.ROOM_USER_MADE_GUESS),
-  data: z.object({
+  payload: z.object({
     playerUuid: PlayerUuid,
   }),
 });
@@ -71,7 +71,7 @@ export const EventRoomPlayerGuess = z.object({
 export type IEventRoomPlayerJoined = z.infer<typeof EventRoomPlayerJoined>;
 export const EventRoomPlayerJoined = z.object({
   event: z.literal(PUSH.ROOM_PLAYER_JOINED),
-  data: z.object({
+  payload: z.object({
     playerUuid: PlayerUuid,
     playerName: Player.shape.name,
   }),
@@ -80,7 +80,7 @@ export const EventRoomPlayerJoined = z.object({
 export type IEventRoomPlayerLeft = z.infer<typeof EventRoomPlayerLeft>;
 export const EventRoomPlayerLeft = z.object({
   event: z.literal(PUSH.ROOM_PLAYER_LEFT),
-  data: z.object({
+  payload: z.object({
     playerUuid: PlayerUuid,
   }),
 });
@@ -88,7 +88,7 @@ export const EventRoomPlayerLeft = z.object({
 export type IEventRoomResults = z.infer<typeof EventRoomResults>;
 export const EventRoomResults = z.object({
   event: z.literal(PUSH.ROOM_RESULTS),
-  data: z.array(
+  payload: z.array(
     z.object({
       playerUuid: PlayerUuid,
       result: z.enum(GUESS_RESULTS),

@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { Player } from './player';
 import { RoomUuid } from './room';
 
+export type COMMAND = (typeof COMMAND)[keyof typeof COMMAND];
 export const COMMAND = {
   MAKE_GUESS: 'make-guess',
   RESET_SECRET: 'reset-secret',

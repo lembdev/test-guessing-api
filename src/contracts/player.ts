@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export type PlayerUuid = z.infer<typeof PlayerUuid>;
+export type IPlayerUuid = z.infer<typeof PlayerUuid>;
 export const PlayerUuid = z.ulid().brand<'PlayerUuid'>();
 
 export type IPlayer = z.infer<typeof Player>;

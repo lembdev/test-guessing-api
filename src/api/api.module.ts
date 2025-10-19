@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { WsModule } from './web-socket/web-socket.module';
+import { WebSocketModule } from './web-socket/web-socket.module';
 
 @Module({
-  imports: [WsModule],
+  imports: [WebSocketModule],
 })
 export class ApiModule {}

@@ -6,4 +6,4 @@ import { GameGateway } from './gateways/game.gateway';
   imports: [AppModule],
   providers: [GameGateway],
 })
-export class WsModule {}
+export class WebSocketModule {}

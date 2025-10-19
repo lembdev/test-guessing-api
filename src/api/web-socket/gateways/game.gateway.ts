@@ -1,4 +1,5 @@
 import type { Server, Socket } from 'socket.io';
+import type { ISocketId } from 'src/contracts';
 import { BadRequestException, Logger, OnModuleInit } from '@nestjs/common';
 import {
   OnGatewayConnection,
@@ -50,7 +51,10 @@ export class GameGateway
     const parseResult = Command.safeParse(command);
 
     return parseResult.success
-      ? this._commandHandlerService.handle(socket, parseResult.data)
+      ? this._commandHandlerService.handle(
+          socket.id as ISocketId,
+          parseResult.data,
+        )
       : this._emitError(socket, command, parseResult.error);
   }
 
